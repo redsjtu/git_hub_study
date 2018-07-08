@@ -1,0 +1,15 @@
+#设置使用tensorflow作为backend并在GPU上运行
+
+import tensorflow as tf
+import keras.backend.tensorflow_backend as KTF
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"  #设置需要使用的GPU的编号
+config = tf.ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.4 #设置使用GPU容量占GPU总容量的比例
+sess = tf.Session(config=config)
+KTF.set_session(sess)
+
+作者：samboy
+链接：https://www.jianshu.com/p/35ece640ce90
+來源：简书
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
