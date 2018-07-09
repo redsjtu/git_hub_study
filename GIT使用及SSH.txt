@@ -1,0 +1,43 @@
+﻿设置SSH key。
+
+在创建完账户之后可以通过Follow（关注）别人，可以通过这个方法知道你关注的那个人都做了什么。
+在Git Hub上连接已有仓库时的认证，是通过使用了SSH的公开密钥认证方式进行的。
+
+现在介绍一下公开密钥和私有密钥，如果对此不感兴趣的可以跳到后面。
+为解决信息公开传送和密钥管理问题，在1976年提出了新的密钥交换协议，允许在不安全的媒体上的通讯双方互换信息，安全的达成一致的密钥，这就是公开密钥系统，也就是非对称加密算法，这个算法需要两个密钥：公开密钥和私有密钥，如果公开密钥对数据进行加密，只有用对应的私有密钥才能解密，同理用私有密钥加密只有公有密钥可以解密。因为加密和解密使用的是不同的两个不同的密钥，流程是一方生成一对密钥并将其中的一个一把作为公共的密钥向其他人公开，得到密钥的人使用该密钥对机密信息进行加密后再发送。非对称加密算法的保密性非常好，他消除了在用户交换密钥的需要，但加密和解密花费时间长速度慢。
+
+现在继续回到刚才的问题上，如何设置SSH key,在GitHub上连接已有仓库的，就是通过使用了SSH的公开密钥认证方式进行，运行下面的命令创建SSH key：
+ssh-keygen -t rsa -C "your email" (也可以是github的用户名)
+这里需要填创建账户时用的邮箱地址，之后会要求输入密码。
+
+创建的文件id_rsa是私有密钥，id_rsa.pub是公有密钥，现在在GitHub上添加公开密钥，今后就可以用私有密钥进行认证了，在右上角点击账户设定按钮，选择SSH Keys菜单后，点击Add SSH Key，会出现Tittle和Key两个框，在Tittle中填入适当的钥匙名称，Key部分复制粘贴id_rsa.pub文件里的内容。
+id_rsa.pub的内容可以用如下方法查看：
+cat -/.ssh/id rsa.pub
+
+将SSH添加到github
+
+之后根据邮箱收到的邮件进行确认。完成以上步骤就可以和GitHub进行通讯了，使用：
+ssh -T git@github.com
+当出现successfully的时候说明成功。
+
+链接远程库
+git remote add origin git@github.com:redsjtu/MP_GIT.git
+或git remote set-url origin https://github.com/redsjtu/study.git
+第一种方法更快。但是首次使用第一种方法时，出现问题：
+ERROR: Repository not found.
+fatal: Could not read from remote repository.
+Please make sure you have the correct access rights
+and the repository exists.
+个人认为，这是因为第一种方法最后的"/MP_GIT.git"应该是远程库的"/study.git",而非本地的"/MP_GIT.git"
+
+本地git版本库push到github
+git push -u origin master
+
+
+
+
+网址：
+远程库连接及SSH推荐：https://blog.csdn.net/ZytheMoon/article/details/79481385
+https://www.cnblogs.com/superGG1990/p/6844952.html
+https://blog.csdn.net/qazwsxpcm/article/dhttps://blog.csdn.net/scx_yatoy/article/details/53148217etails/68946736
+链接远程库出问题时，可参考
