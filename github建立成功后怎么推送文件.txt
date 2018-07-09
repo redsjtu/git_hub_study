@@ -1,3 +1,5 @@
+
+cd /C/Users/mapeng/MP_GIT/  （打开本地库目录）
 git add readme.txt  （readme.txt可以替换成其他带中文的文件名）
 git commit -m "wrote a readme file"   （wrote a readme file为本次推送的注释）
 git push -u origin master  （第一次推送master分支的所有内容：git push -u origin master）
