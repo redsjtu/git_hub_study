@@ -1,0 +1,107 @@
+第一章：git的安装
+1.不同系统下安装git软件包
+2.安装完成后打开git.bash，输入
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+告诉git，你是谁，你的邮箱是什么。用于连接GitHub，上传文件时，告诉GitHub（远程版本库），你是谁
+
+第二章：git的使用（创建本地版本库）
+1.新建文件夹，用于存储本地版本库
+$ mkdir learngit
+$ cd learngit
+$ pwd
+/Users/michael/learngit
+2.注意，这个本地库之下，可以新建文件夹，直接用于存放每个项目。后期直接添加整个项目子文件夹到本地库，直接推送到远程库，方便很多；
+但是这样也会把整个版本库都刷新，这是不好的地方。
+3.初始化本地库
+$ git init
+Initialized empty Git repository in /Users/michael/learngit/.git/
+
+第三章：本地库SSH的生成——SSH是链接远程库的钥匙
+预处理步骤（可跳过，直接进入步骤3，后期再折回也可）：
+1.首先按照最下面网址3,更改git.bash默认的路径（如果本地版本库与git.bash不在同一个分区盘）
+2.打开git.bash,创建并初始化本地版本库
+  https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013743256916071d599b3aed534aaab22a0db6c4e07fd0000
+
+#在创建完账户之后可以通过Follow（关注）别人，可以通过这个方法知道你关注的那个人都做了什么。
+#在Git Hub上连接已有仓库时的认证，是通过使用了SSH的公开密钥认证方式进行的。
+#现在介绍一下公开密钥和私有密钥，如果对此不感兴趣的可以跳到后面。
+#为解决信息公开传送和密钥管理问题，在1976年提出了新的密钥交换协议，允许在不安全的媒体上的通讯双方互换信息，安全的达成一致的密钥，这就是公开密钥系统，也就是非对称加密算法，这个算法需要两个密钥：公开密钥和私有密钥，如果公开密钥对数据进行加密，只有用对应的私有密钥才能解密，同理用私有密钥加密只有公有密钥可以解密。因为加密和解密使用的是不同的两个不同的密钥，流程是一方生成一对密钥并将其中的一个一把作为公共的密钥向其他人公开，得到密钥的人使用该密钥对机密信息进行加密后再发送。非对称加密算法的保密性非常好，他消除了在用户交换密钥的需要，但加密和解密花费时间长速度慢。
+
+正式开始：
+3.在MP_GIT下建立SSH文件夹
+  （之所以不放默认，是因为这样便于文件管理）
+  mkdir /F/MP_GIT/.ssh/   (不能使用小写/f/MP_GIT，改变git.bash默认路径后，虽然是f/MP_GIT，但建目录时，不能使用小写)
+
+4.创建SSH key：
+  ssh-keygen -t rsa -C "GitHub_username" (也可以是GitHub的注册邮箱)
+  要求输入两次GitHub密码，且不会显示。
+
+5.查看公钥：
+  创建的文件id_rsa是私有密钥，id_rsa.pub是公有密钥，现在在GitHub上添加公开密钥，今后就可以用私有密钥进行认证了，在右上角点击账户设定按钮，选择SSH Keys菜单后，点击Add SSH Key，会出现Tittle和Key两个框，在Tittle中填入适当的钥匙名称，Key部分复制粘贴id_rsa.pub文件里的内容。
+  id_rsa.pub的内容可以用如下方法查看：
+  cat /F/MP_GIT/.ssh/id_rsa.pub            （原文档是cat -/.ssh/id_rsa.pub）
+
+6.在Github网页里，将SSH添加到github
+
+7.确认添加成功：
+  ssh -T git@github.com
+  当出现successfully的时候说明成功。
+
+8.若添加失败，使用
+  ssh -v git@github.com
+  查看git在哪里搜索ssh
+  密钥private key放在搜索目录下（id_rsa是密钥，id_rsa.pub是公钥）
+
+第四章：链接远程版本库（GitHub）
+9.链接远程库
+  git remote add origin git@github.com:redsjtu/MP_GIT.git
+  或git remote set-url origin https://github.com/redsjtu/study.git
+  第一种方法更快。但是首次使用第一种方法时，出现问题：
+  ERROR: Repository not found.
+  fatal: Could not read from remote repository.
+  Please make sure you have the correct access rights
+  and the repository exists.
+  个人认为，这是因为第一种方法最后的"/MP_GIT.git"应该是远程库的"/study.git",而非本地的"/MP_GIT.git"
+  这里一定要跟的远程库的位置，远程库的https位置的具体解决办法可参考下面↓“链接远程库出问题时，可参考”的网址
+
+第五章：把文件存到本地库（Git）
+$ git add readme.txt（可以添加整个文件夹 ./test  ，文件夹里的文件也会加进版本库）
+$ git commit -m "wrote a readme file"
+
+第六章：把文件推送到远程库（GitHub）
+  本地git版本库push到github
+  git push origin master
+  第一次推送，使用：
+  git push -u origin master
+
+  本地git版本库push到github
+  git push -u origin master
+
+网址：
+1.远程库连接及SSH推荐（廖雪峰没有涉及这块）：
+	https://blog.csdn.net/ZytheMoon/article/details/79481385
+2.windows下github 出现Permission denied (publickey).解决方法
+	原因：ssh必须放在bash刚打开时的那个文件夹下：
+	问题分析网址：
+	https://www.cnblogs.com/eoooxy/p/6075625.html
+	更改方法：
+	通过ssh -v git@github.com 查看git在哪里搜索ssh
+	将密钥private key放在搜索目录下（id_rsa是密钥，id_rsa.pub是公钥）
+3.修改 Git Bash修改默认打开之后的路径
+	https://blog.csdn.net/zzfenglin/article/details/54646541
+4.git pull时报错fatal: Could not read from remote repository.可参考
+	https://blog.csdn.net/scx_yatoy/article/details/53148217
+5.其他：
+	https://www.cnblogs.com/superGG1990/p/6844952.html
+	https://blog.csdn.net/qazwsxpcm/article/details/68946736
+
+
+
+
+
+
+
+
+
+
