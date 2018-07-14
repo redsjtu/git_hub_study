@@ -78,6 +78,13 @@ $ git commit -m "wrote a readme file"
   本地git版本库push到github
   git push -u origin master
 
+  本地如果有两个库，只需要git.bash进入每个项目的本地版本库的路径，在相应的路径下git add，然后推送到远程版本库（GitHub），自动就会推送到对应的库。
+  推送到哪个库，取决于在哪个路径下推送。
+
+
+
+
+
 网址：
 1.远程库连接及SSH推荐（廖雪峰没有涉及这块）：
 	https://blog.csdn.net/ZytheMoon/article/details/79481385
