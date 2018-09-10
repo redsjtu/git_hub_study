@@ -1,0 +1,41 @@
+
+
+###############################################
+——工具安装 ——
+——tweak优化——
+
+sudo apt-get update
+sudo apt-get install gnome-tweak-tool
+sudo apt-get install gnome-shell-extensions
+sudo apt-get install  gnome-shell-extension-dashtodock
+
+注：
+——安装tweak
+——安装tweak的拓展
+——安装可修改侧栏的插件
+——tweak安装完成，重启Ubuntu生效。
+
+Ubuntu18.04美化总结
+https://www.jianshu.com/p/6ef16e3b0a3e
+
+###############################################
+Ubuntu18.04美化主题(mac主题)
+https://blog.csdn.net/lishanleilixin/article/details/80453565
+
+——1.安装GTK主题
+——2.修改图标
+——3.修改桌面Shell
+
+###############################################
+——搜狗拼音安装——
+——在优麒麟下载***.deb文件
+——右键，用软件安装打开。
+
+###############################################
+——QQ安装——
+教训：
+sudo dpkg -i 与sudo apt-get不同
+输入命令，文件名可通过tab键补全。似乎只补全运行目录下的文件名。
+使用dpkg容易产生依赖关系的问题。dpkg安装，那个是比较底层的安装方式，不会帮你解决依赖的，很容易因为相互依赖而产生系统错误，最终装也装不了，卸也卸不了。
+sudo apt-get install -f 自动解决依赖关系。但只能解决一部分的依赖关系问题。
+
