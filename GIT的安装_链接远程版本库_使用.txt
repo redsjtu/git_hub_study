@@ -67,9 +67,7 @@
   git push origin master
   第一次推送，使用：
   git push -u origin master
-2.本地git版本库push到github
-  git push -u origin master
-3.注：本地如果有两个库，只需要git.bash进入每个项目的本地版本库的路径，在相应的路径下git add，然后推送到远程版本库（GitHub），自动就会推送到对应的库。
+2.注：本地如果有两个库，只需要git.bash进入每个项目的本地版本库的路径，在相应的路径下git add，然后推送到远程版本库（GitHub），自动就会推送到对应的库。
   推送到哪个库，取决于在哪个路径下推送。
 
 参考网址：
